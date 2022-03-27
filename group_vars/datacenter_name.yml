@@ -1,0 +1,6 @@
+---
+vcenter_hostname: 'vCenter.fqdn'
+ntp_servers: 
+    - timeserver.fqdn.or.ip
+scratch_datasore: 'datastore_name'
+scratch_location: '/vmfs/volumes/datastore.uuid/'

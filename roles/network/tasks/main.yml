@@ -1,0 +1,27 @@
+- name: Remove vSS
+  community.vmware.vmware_vswitch:
+    hostname: '{{ vcenter_hostname }}'
+    username: '{{ vc_username }}'
+    password: '{{ vc_password }}'
+    esxi_hostname: '{{ inventory_hostname }}'
+    validate_certs: false
+    switch: vSwitch0
+    state: absent
+
+- name: Configure additional vmkernel adapters
+  community.vmware.vmware_vmkernel:
+    hostname: '{{ vcenter_hostname }}'
+    username: '{{ vc_username }}'
+    password: '{{ vc_password }}'
+    esxi_hostname: '{{ inventory_hostname }}'
+    validate_certs: false
+    dvswitch_name: '{{ dswitch }}'
+    mtu: '{{ item.mtu }}'
+    portgroup_name: '{{ item.name }}'
+    enable_vmotion: '{{ item.enable_vmotion }}'
+    network:
+      ip_address: '{{ item.ip_address }}'
+      subnet_mask: '{{ item.subnet_mask }}'
+      type: static
+    state: present
+  loop: '{{ vmkernels }}'

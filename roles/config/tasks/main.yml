@@ -1,0 +1,27 @@
+- name: Change Advanced Options
+  community.vmware.vmware_host_config_manager:
+    hostname: '{{ vcenter_hostname }}'
+    username: '{{ vc_username }}'
+    password: '{{ vc_password }}'
+    esxi_hostname: '{{ inventory_hostname }}'
+    validate_certs: false
+    options:
+      'Misc.APDTimeout': 600
+      'Net.TcpipHeapSize': 32
+      'Net.TcpipHeapMax': 1536
+      'Mem.VMOverheadGrowthLimit': 0
+      'Disk.QFullThreshold': 8
+      'Disk.QFullSampleSize': 32
+      'NFS41.MaxVolumes': 256
+      'NFS.MaxVolumes': 256
+      'NFS.MaxQueueDepth': 128
+      'NFS.HeartbeatTimeout': 5
+      'NFS.HeartbeatMaxFailures': 10
+      'NFS.HeartbeatFrequency': 12
+      'UserVars.HostClientCEIPOptIn': 1
+      'UserVars.SuppressCoredumpWarning': 1
+      'UserVars.SuppressHyperthreadWarning': 1
+      'UserVars.SuppressShellWarning': 1
+      'Net.BlockGuestBPDU': 1
+      'SunRPC.MaxConnPerIP': 128
+      'Mem.ShareForceSalting': 0

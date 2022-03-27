@@ -1,0 +1,29 @@
+- name: Set NTP Servers
+  vmware_host_ntp:
+    hostname: '{{ vcenter_hostname }}'
+    username: '{{ vc_username }}'
+    password: '{{ vc_password }}'
+    esxi_hostname: '{{ inventory_hostname }}'
+    validate_certs: false
+    state: present
+    ntp_servers: '{{ ntp_servers }}'
+- name: Start ntpd service
+  vmware_host_service_manager:
+    hostname: '{{ vcenter_hostname }}'
+    username: '{{ vc_username }}'
+    password: '{{ vc_password }}'
+    esxi_hostname: '{{ inventory_hostname }}'
+    validate_certs: false
+    service_name: ntpd
+    service_policy: on
+    state: start
+- name: Enable and start ssh service
+  vmware_host_service_manager:
+    hostname: '{{ vcenter_hostname }}'
+    username: '{{ vc_username }}'
+    password: '{{ vc_password }}'
+    esxi_hostname: '{{ inventory_hostname }}'
+    validate_certs: false
+    service_name: TSM-SSH
+    service_policy: on
+    state: start

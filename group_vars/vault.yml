@@ -1,0 +1,5 @@
+# this vault must be encrypted with ansible-vault tool
+# for example:
+# ansible-vault enctypt vault.yml --ask-vault-pass
+vc_username: 'username'
+vc_password: 'password'

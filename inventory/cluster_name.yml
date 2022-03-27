@@ -1,0 +1,32 @@
+<cluster_name>:
+    hosts:
+        <host_name.fqdn>:
+            vmkernels:
+                - {'name': 'VMK1', 'ip_address': '10.10.10.2', subnet_mask: '255.255.255.0', 'mtu': 9000, 'enable_vmotion': false}
+                - {'name': 'VMK2', 'ip_address': '10.10.11.2', subnet_mask: '255.255.255.0', 'mtu': 9000, 'enable_vmotion': true}
+                - {'name': 'VMK3', 'ip_address': '10.10.11.102', subnet_mask: '255.255.255.0', 'mtu': 9000, 'enable_vmotion': true}
+            vmkiscsi:
+                - {'name': 'iSCSI-VMK1', 'ip_address': '10.10.20.101', subnet_mask: '255.255.255.0', 'mtu': 9000}
+                - {'name': 'iSCSI-VMK2', 'ip_address': '10.10.20.102', subnet_mask: '255.255.255.0', 'mtu': 9000}
+        
+    vars:
+        ansible_python_interpreter: "/usr/bin/python3"
+        datacenter_name: '<DC_Name>'
+        cluster_name: 'Cluster_Name'
+        dswitch: 'dvSwitch'
+        #If you use dedicated scratch folder insert it name this
+        scratch_folder_on_ds: ""
+        #Vmkernel for iSCSI binding
+        iscsi_vmk:
+            - vmk4
+            - vmk5
+        #I realize only nfs datastores
+        datastores:
+            - { 'name': 'datastore1', 'server': '10.10.10.200', 'path': '/datastore1', 'type': 'nfs'}
+            - { 'name': 'datastore2', 'server': '10.10.10.201', 'path': '/datastore1', 'type': 'nfs'}
+        targets:
+            # chap_secret - Outgoing CHAP Credentials, mutual_chap_secret - Incoming CHAP Credentials
+            - {'address': '10.10.20.200', 'iscsi_name': 'iqn.1992-08.com.myiscsitarget', 'chap_secret': 'my_secret_chap', 'mutual_chap_secret': 'my_secret_mutual_chap'}
+            - {'address': '10.10.20.201', 'iscsi_name': 'iqn.1992-08.com.myiscsitarget', 'chap_secret': 'my_secret_chap', 'mutual_chap_secret': 'my_secret_mutual_chap'}
+            - {'address': '10.10.20.202', 'iscsi_name': 'iqn.1992-08.com.myiscsitarget', 'chap_secret': 'my_secret_chap', 'mutual_chap_secret': 'my_secret_mutual_chap'}
+            - {'address': '10.10.20.203', 'iscsi_name': 'iqn.1992-08.com.myiscsitarget', 'chap_secret': 'my_secret_chap', 'mutual_chap_secret': 'my_secret_mutual_chap'}

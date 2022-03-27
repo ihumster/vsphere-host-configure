@@ -1,0 +1,20 @@
+- name: Create hostname folder on scratch datastore
+  community.vmware.vsphere_file:
+    hostname: '{{ vcenter_hostname }}'
+    username: '{{ vc_username }}'
+    password: '{{ vc_password }}'
+    validate_certs: false
+    datacenter: '{{ datacenter_name }}'
+    datastore: '{{ scratch_datasore }}'
+    path: '{{ scratch_folder_on_ds }}{{ inventory_hostname_short }}'
+    state: directory
+
+- name: Add scratch and poructLocker location to Advanced Options
+  community.vmware.vmware_host_config_manager:
+    hostname: '{{ vcenter_hostname }}'
+    username: '{{ vc_username }}'
+    password: '{{ vc_password }}'
+    esxi_hostname: '{{ inventory_hostname }}'
+    validate_certs: false
+    options:
+        'ScratchConfig.ConfiguredScratchLocation': '{{ scratch_location }}{{ scratch_folder_on_ds }}{{ inventory_hostname_short }}'
